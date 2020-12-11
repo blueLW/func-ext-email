@@ -24,7 +24,7 @@ class Module extends baseModule
 
     //模块定义
     protected $modules = [
-        'admin' => ['testemail'], //admin 模块，有哪些控制器
+        'admin' => ['test'], //admin 模块，有哪些控制器
     ];
 
     //菜单
@@ -37,7 +37,7 @@ class Module extends baseModule
                 'children' => [
                     [
                         'title' => '测试邮箱管理',
-                        'url' => '/admin/testemail/index',
+                        'url' => '/admin/test/index',
                         'icon' => 'mdi mdi-account-network',
                     ],
                     //...
