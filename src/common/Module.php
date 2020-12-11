@@ -16,29 +16,29 @@ class Module extends baseModule
 
     protected $name = 'tpext.email';
 
-    protected $title = '框架扩展-邮件管理测试';
+    protected $title = '功能扩展-邮件管理';
 
-    protected $description = '邮件管理测试';
+    protected $description = '邮件管理';
 
     protected $root = __DIR__ . '/../../';  //不用动
 
     //模块定义
     protected $modules = [
-        'admin' => ['test'], //admin 模块，有哪些控制器
+        'admin' => ['email'], //admin 模块，有哪些控制器
     ];
 
     //菜单
     protected $menus =
         [
             [
-                'title' => '邮箱管理测试',
+                'title' => '邮箱管理',
                 'url' => '#',
-                'icon' => 'mdi mdi-account-card-details',
+                'icon' => 'mdi mdi-email-outline',
                 'children' => [
                     [
-                        'title' => '测试邮箱管理',
-                        'url' => '/admin/test/index',
-                        'icon' => 'mdi mdi-account-network',
+                        'title' => '邮箱列表',
+                        'url' => '/admin/email/index',
+                        'icon' => 'mdi mdi-format-list-bulleted',
                     ],
                     //...
                 ],
@@ -46,7 +46,7 @@ class Module extends baseModule
             //...
         ];
 
-/*    //路由匹配成功，比如 访问 /test/test1/index
+   //路由匹配成功，比如 访问 /test/test1/index
     public function pubblish() {
         //默认会替换静态资源路径
         // __ASSETS__ => /public/assets
@@ -56,5 +56,5 @@ class Module extends baseModule
 
         parent::pubblish();
        //你的逻辑...
-    }*/
+    }
 }

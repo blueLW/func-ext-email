@@ -1,1 +1,1 @@
-DROP TABLE IF EXISTS `__PREFIX__test_email`;
+DROP TABLE IF EXISTS `__PREFIX__admin_email`;

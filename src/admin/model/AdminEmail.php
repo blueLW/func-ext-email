@@ -4,14 +4,14 @@
  * User: LW
  * Date: 2020/12/11
  * Time: 16:09
- * Desc: 测试邮箱管理
+ * Desc: 邮箱管理表
  */
 namespace tpext\email\admin\model;
 
 use think\Model;
 
-class TestEmail extends Model
+class AdminEmail extends Model
 {
-    protected $table = 'test_email';
+    protected $table = 'admin_email';
 }
 
