@@ -15,7 +15,8 @@
     "require": {
         "php": ">=7.0.0",
         "topthink/framework": "5.1.*",
-        "ichynul/tpext": "1.4.3"
+        "ichynul/tpext": "1.4.3",
+        "ichynul/tpextbuilder": "1.8.9"
     },
     "autoload": {
         "psr-4": {

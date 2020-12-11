@@ -7,9 +7,10 @@
  * Desc: 测试
  */
 namespace tpext\email\admin\controller;
-use app\admin\model\AdminEmail;
 use think\Controller;
+use think\Request;
 use tpext\builder\traits\HasBuilder;
+use tpext\email\model\TestEmail;
 
 class Extension extends Controller
 {
@@ -17,8 +18,8 @@ class Extension extends Controller
     protected $dataModel;
     protected function initialize()
     {
-        $this->dataModel = new AdminEmail;
-        $this->pageTitle = '测试';
+        $this->dataModel = new TestEmail();
+        $this->pageTitle = '测试邮箱管理';
         $this->enableField = 'state';               //启用禁用字段
         $this->pagesize = 30;
     }
@@ -37,10 +38,30 @@ class Extension extends Controller
             ->btnDelete('','批量删除')
             ->btnEnableAndDisable('启用','禁用')
             ->btnRefresh('刷新')
-            ->btnExportS(['xlsx'=>'xlsx文件'],'/admin/email/upload','导出');
+            ->btnExportS(['xlsx'=>'xlsx文件'],'/admin/testemail/upload','导出');
         $table->getActionbar()
             ->btnEdit()
             ->btnView()
             ->btnDelete();
+    }
+
+    /**下载文件
+     * @param Request $request
+     * @return \think\response\Json
+     * @time 2020/12/8 14:55
+     * @author LW
+     */
+    public function upload(Request $request)
+    {
+        $response = $this->export()->getContent();              //调用系统下载组件
+        $data = json_decode($response,true);
+        $xlsx_path = $data['data'] ?? '';
+        $file_path = empty($xlsx_path) ? '' : APP_PATH.$xlsx_path;
+
+        if(!empty($file_path) && is_file($file_path)){
+            $dowload = $request->domain().$xlsx_path;           //完整的下载链接
+            return json(['code'=>1,'msg'=>'文件导出成功,点击下载!','data'=>$dowload]);
+        }
+        return json(['code'=>0,'msg'=>'文件导出失败,请刷新重试!']);
     }
 }
