@@ -1,2 +1,2 @@
 # tpextemail
- 邮箱扩展
+ tpext功能扩展-邮件管理
