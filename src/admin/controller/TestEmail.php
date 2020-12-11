@@ -10,15 +10,15 @@ namespace tpext\email\admin\controller;
 use think\Controller;
 use think\Request;
 use tpext\builder\traits\HasBuilder;
-use tpext\email\model\TestEmail;
+use tpext\email\model\TestEmail as TestEmailModel;
 
-class Extension extends Controller
+class TestEmail extends Controller
 {
     use HasBuilder;
     protected $dataModel;
     protected function initialize()
     {
-        $this->dataModel = new TestEmail();
+        $this->dataModel = new TestEmailModel();
         $this->pageTitle = '测试邮箱管理';
         $this->enableField = 'state';               //启用禁用字段
         $this->pagesize = 30;
