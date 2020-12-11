@@ -1,0 +1,28 @@
+{
+    "name": "summer-night-wind/tpextemail",
+    "description": "邮件管理",
+    "type": "library",
+    "keywords": [
+        "thinkphp"
+    ],
+    "license": "Apache-2.0",
+    "authors": [
+        {
+            "name": "liuwang",
+            "email": "616458279@qq.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.0.0",
+        "topthink/framework": "5.1.*",
+        "ichynul/tpext": "1.4.3"
+    },
+    "autoload": {
+        "psr-4": {
+            "tpext\\email\\": "src/"
+        },
+        "files": [
+            "src/helper.php"
+        ]
+    }
+}
