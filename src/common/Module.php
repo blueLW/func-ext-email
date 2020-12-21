@@ -12,7 +12,7 @@ use tpext\common\Module as baseModule;
 
 class Module extends baseModule
 {
-    protected $version = '1.0.0';
+    protected $version = '1.1.0';
 
     protected $name = 'funcext.email';
 
