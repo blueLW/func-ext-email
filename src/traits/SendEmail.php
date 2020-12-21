@@ -39,9 +39,11 @@ trait SendEmail
         }
         $config = Config::get('email');
         if(empty($config)){
-            $structure = new Structure;
-            response($structure,200);
-            //throw new Exception('未配置邮件发送账户,请参考配置结构:'.json_encode($structure));
+            $structure = Structure::EMAIL_CONFIG_STRUCTURE;
+            return json([
+                'msg'=>'未配置邮件发送账户,请参考配置结构,在config目录创建email.php配置文件/更新已有的email.php配置文件',
+                'config_structure'=>$structure
+            ]);
         }
         die;
         //读取配置信息
