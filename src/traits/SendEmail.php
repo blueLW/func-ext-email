@@ -8,7 +8,7 @@
  */
 namespace funcext\email\traits;
 
-use funcext\email\Structure;
+use funcext\email\common\Structure;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;

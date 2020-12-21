@@ -6,7 +6,7 @@
  * Time: 16:48
  * Desc: 数据结构体文件
  */
-namespace funcext\email;
+namespace funcext\email\common;
 class Structure {
     const EMAIL_CONFIG_STRUCTURE =  [
             'smtp_host'=>'smtp1.xample.com',
