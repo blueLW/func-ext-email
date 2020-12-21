@@ -31,13 +31,8 @@ trait SendEmail
      */
     public function sendEmails(array $receiver, array $content)
     {
-        $emailSender = json_decode(Cache::get('emailSender'),true);     //array
-        if(!empty($emailSender)){
-            arsort($emailSender);
-            $senderAddress = array_key_first($emailSender);     //发送人账号
-        }
-        $config = Config::get('email');
-        if(empty($config)){
+        $sender = Config::get('email.sender');
+        if(empty($sender)){
             $structure = Structure::EMAIL_CONFIG_STRUCTURE;
             $error = [
                 'msg'=>'未配置邮件发送账户,请参考配置结构,在config目录创建email.php配置文件/更新已有的email.php配置文件',
@@ -45,19 +40,30 @@ trait SendEmail
             ];
             throw new Exception(json_encode($error,JSON_UNESCAPED_UNICODE),500);
         }
-        die;
+        $emailSender = json_decode(Cache::get('emailSender'),true);     //array
+        if(!empty($emailSender)){
+            arsort($emailSender);
+            $senderAddress = array_key_first($emailSender);     //发送人账号
+        }else{
+            //随机取一个账号
+            shuffle($sender);
+            $senderAddress = array_key_first($sender)['username'];
+        }
+        $sender = array_column($sender,null,'username');
+
         //读取配置信息
         $mail = new PHPMailer(true);
+        $smtp_host = Config::get('email.smtp_host');
         try {
             $mail->isSMTP();                            //smtp方式发送
             $mail->CharSet = PHPMailer::CHARSET_UTF8;
-            $mail->Host       = 'smtp1.example.com';
+            $mail->Host       = $smtp_host;
             $mail->SMTPAuth   = true;
-            $mail->Username   = 'user@example.com';
-            $mail->Password   = 'secret';
+            $mail->Username   = $senderAddress;
+            $mail->Password   = $sender[$senderAddress]['password'];
             $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;        //tls:587,ssl:465
             $mail->Port       = 465;
-            $mail->setFrom($sender['email'], $sender['name']);      //设置发送人
+            $mail->setFrom($senderAddress, $sender[$senderAddress]['name']);      //设置发送人
             //设置收件人
             foreach ($receiver as $value){
                 $mail->addAddress($value['email'],$value['name']??$value['email']);
@@ -70,7 +76,9 @@ trait SendEmail
         }catch (Exception $exception){
             return "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
-        //设置发送缓存
+        //设置发送缓存值
+        $emailSender['$senderAddress'] = empty($emailSender) ?  1 : $emailSender['$senderAddress'] + 1;
+        Cache::set('emailSender',json_encode($emailSender),3600*24); //缓存24小时
         return true;
     }
 }
