@@ -43,11 +43,11 @@ trait SendEmail
         $emailSender = json_decode(Cache::get('emailSender'),true);     //array
         if(!empty($emailSender)){
             arsort($emailSender);
-            $senderAddress = array_key_first($emailSender);     //发送人账号
+            $senderAddress = current($emailSender);     //发送人账号
         }else{
             //随机取一个账号
             shuffle($sender);
-            $senderAddress = array_key_first($sender)['username'];
+            $senderAddress = current($sender)['username'];
         }
         $sender = array_column($sender,null,'username');
 
