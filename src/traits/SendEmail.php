@@ -77,7 +77,7 @@ trait SendEmail
             return "Message could not be sent. Mailer Error: {$mail->ErrorInfo}";
         }
         //设置发送缓存值
-        $emailSender['$senderAddress'] = empty($emailSender) ?  1 : $emailSender['$senderAddress'] + 1;
+        $emailSender[$senderAddress] = empty($emailSender) ?  1 : $emailSender[$senderAddress] + 1;
         Cache::set('emailSender',json_encode($emailSender),3600*24); //缓存24小时
         return true;
     }
