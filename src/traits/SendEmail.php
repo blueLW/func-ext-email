@@ -8,7 +8,6 @@
  */
 namespace funcext\email\traits;
 
-//use funcext\email\common\Structure;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -41,6 +40,7 @@ trait SendEmail
         if(empty($config)){
             //$structure = Structure::EMAIL_CONFIG_STRUCTURE;
             //throw new Exception('未配置邮件发送账户,请参考配置结构:'.json_encode($structure));
+            die;
         }
         die;
         //读取配置信息
