@@ -1,6 +1,6 @@
 {
-    "name": "summer-night-wind/tpextemail",
-    "description": "邮件管理",
+    "name": "summer-night-wind/func-ext-email",
+    "description": "功能扩展-邮件管理",
     "type": "library",
     "keywords": [
         "thinkphp"
