@@ -15,7 +15,8 @@
     "require": {
         "php": ">=7.0.0",
         "ichynul/tpext": "1.4.3",
-        "ichynul/tpextbuilder": "1.8.92"
+        "ichynul/tpextbuilder": "1.8.92",
+        "phpmailer/phpmailer" : "^6.1"
     },
     "autoload": {
         "psr-4": {
