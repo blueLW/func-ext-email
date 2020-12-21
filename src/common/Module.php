@@ -6,7 +6,7 @@
  * Time: 14:49
  * Desc:
  */
-namespace tpext\email\common;
+namespace funext\email\common;
 
 use tpext\common\Module as baseModule;
 
@@ -14,7 +14,7 @@ class Module extends baseModule
 {
     protected $version = '1.0.0';
 
-    protected $name = 'tpext.email';
+    protected $name = 'funext.email';
 
     protected $title = '功能扩展-邮件管理';
 

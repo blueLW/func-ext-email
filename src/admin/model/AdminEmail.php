@@ -6,7 +6,7 @@
  * Time: 16:09
  * Desc: 邮箱管理表
  */
-namespace tpext\email\admin\model;
+namespace funext\email\admin\model;
 
 use think\Model;
 

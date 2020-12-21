@@ -4,13 +4,14 @@
  * User: LW
  * Date: 2020/12/11
  * Time: 16:01
- * Desc: 测试
+ * Desc: 邮箱管理
  */
-namespace tpext\email\admin\controller;
+namespace funext\email\admin\controller;
 use think\Controller;
+use think\exception\ValidateException;
 use think\Request;
 use tpext\builder\traits\HasBuilder;
-use tpext\email\admin\model\AdminEmail;
+use funext\email\admin\model\AdminEmail;
 
 class Email extends Controller
 {
@@ -43,7 +44,7 @@ class Email extends Controller
             ->btnDelete('','批量删除')
             ->btnEnableAndDisable('启用','禁用')
             ->btnRefresh('刷新')
-            ->btnExportS(['xlsx'=>'xlsx文件'],'/admin/email/upload','导出');
+            ->btnExportS(['xlsx'=>'xlsx文件'],'/admin/email/upload','导出');        //定义下载按钮,下载地址
         $table->getActionbar()
             ->btnEdit()
             ->btnView()
@@ -72,22 +73,20 @@ class Email extends Controller
      */
     private function save($id = 0)
     {
-        //接收数据
-        $data = request()->only([
-            'email',
-        ], 'post');
-
-        //验证数据规则
-        $result = $this->validate($data, [
-            'email|邮箱' => 'email',
-        ]);
-        if (true !== $result) {
-            $this->error($result);
+        $data = request()->only(['email'], 'post');
+        try {
+            $validate_map = [
+                'email|邮箱' => 'email'
+            ];
+            $result = $this->validate($data,$validate_map);
+        }catch (ValidateException $exception){
+            $this->error($exception->getMessage());
         }
 
         //验证数据是否重复
-        $exist = $this->dataModel->where(['email' => $data['email']])->find();
-        if(!empty($exist['email']) && $exist['email']==$data['email'] && $exist['id'] != $id){
+        $email = trim($data['email']);
+        $exist = $this->dataModel->where(['email' =>$email])->find();
+        if(!empty($exist['email']) && $exist['id'] != $id){
             $this->error('该邮箱已被占用,请更换其他邮箱');
         }
 
@@ -103,9 +102,9 @@ class Email extends Controller
      */
     public function upload(Request $request)
     {
-        $response = $this->export()->getContent();              //调用系统下载组件
+        $response = $this->export()->getContent();              //调用系统底层下载组件
         $data = json_decode($response,true);
-        $xlsx_path = $data['data'] ?? '';
+        $xlsx_path = $data['data'] ?? '';                       //文件路径
         $file_path = empty($xlsx_path) ? '' : APP_PATH.$xlsx_path;
 
         if(!empty($file_path) && is_file($file_path)){
