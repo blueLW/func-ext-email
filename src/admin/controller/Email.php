@@ -6,12 +6,12 @@
  * Time: 16:01
  * Desc: 邮箱管理
  */
-namespace funext\email\admin\controller;
+namespace funcext\email\admin\controller;
 use think\Controller;
 use think\exception\ValidateException;
 use think\Request;
 use tpext\builder\traits\HasBuilder;
-use funext\email\admin\model\AdminEmail;
+use funcext\email\admin\model\AdminEmail;
 
 class Email extends Controller
 {

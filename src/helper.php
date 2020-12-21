@@ -10,7 +10,7 @@
 use tpext\common\ExtLoader;
 
 $classMap = [
-    'funext\\email\\common\\Module'
+    'funcext\\email\\common\\Module'
 ];
 
 //注册扩展

@@ -19,7 +19,7 @@
     },
     "autoload": {
         "psr-4": {
-            "funext\\email\\": "src/"
+            "funcext\\email\\": "src/"
         },
         "files": [
             "src/helper.php"

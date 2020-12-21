@@ -6,7 +6,7 @@
  * Time: 17:11
  * Desc: 邮件处理方法
  */
-namespace funext\email\traits;
+namespace funcext\email\traits;
 
 /**
  * 添加
