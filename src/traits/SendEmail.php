@@ -31,8 +31,10 @@ trait SendEmail
     public function sendEmails(array $receiver, array $content)
     {
         $emailSender = json_decode(Cache::get('emailSender'),true);     //array
-        arsort($emailSender);
-        $senderAddress = array_key_first($emailSender);     //发送人账号
+        if(!empty($emailSender)){
+            arsort($emailSender);
+            $senderAddress = array_key_first($emailSender);     //发送人账号
+        }
         $config = Config::get();
         die;
         //读取配置信息
