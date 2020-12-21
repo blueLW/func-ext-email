@@ -1,5 +1,5 @@
 
-CREATE TABLE `__PREFIX__admin_email` (
+CREATE TABLE IF NOT EXISTS `__PREFIX__admin_email` (
   `id` int(10) unsigned NOT NULL AUTO_INCREMENT COMMENT '主键',
   `email` varchar(60) NOT NULL DEFAULT '' COMMENT '邮箱',
   `enable` tinyint(4) unsigned NOT NULL DEFAULT '1' COMMENT '1:开启/0:禁用',
