@@ -24,7 +24,6 @@ trait SendEmail
     /**邮件发送
      * @param array $receiver           邮件接收者,支持多个
      * @param array $content            邮件内容 subject:邮件标题,body:邮件内容主体
-     * @param string $title
      * @return bool|string
      * @throws Exception
      * @time 2020/12/21 15:42
@@ -40,10 +39,11 @@ trait SendEmail
         $config = Config::get('email');
         if(empty($config)){
             $structure = Structure::EMAIL_CONFIG_STRUCTURE;
-            return json([
+            $error = [
                 'msg'=>'未配置邮件发送账户,请参考配置结构,在config目录创建email.php配置文件/更新已有的email.php配置文件',
                 'config_structure'=>$structure
-            ]);
+            ];
+            throw new Exception($error,500);
         }
         die;
         //读取配置信息
