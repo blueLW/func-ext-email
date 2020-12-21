@@ -43,7 +43,7 @@ trait SendEmail
                 'msg'=>'未配置邮件发送账户,请参考配置结构,在config目录创建email.php配置文件/更新已有的email.php配置文件',
                 'config_structure'=>$structure
             ];
-            throw new Exception(json_encode($error),500);
+            throw new Exception(json_encode($error,JSON_UNESCAPED_UNICODE),500);
         }
         die;
         //读取配置信息
