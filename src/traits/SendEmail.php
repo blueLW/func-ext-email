@@ -8,6 +8,7 @@
  */
 namespace funcext\email\traits;
 
+use funcext\email\Structure;
 use PHPMailer\PHPMailer\Exception;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\SMTP;
@@ -25,6 +26,7 @@ trait SendEmail
      * @param array $content            邮件内容 subject:邮件标题,body:邮件内容主体
      * @param string $title
      * @return bool|string
+     * @throws Exception
      * @time 2020/12/21 15:42
      * @author LW
      */
@@ -35,7 +37,11 @@ trait SendEmail
             arsort($emailSender);
             $senderAddress = array_key_first($emailSender);     //发送人账号
         }
-        $config = Config::get();
+        $config = Config::get('email');
+        if(empty($config)){
+            $structure = Structure::EMAIL_CONFIG_STRUCTURE;
+            throw new Exception('未配置邮件发送账户,请参考配置结构:'.json_encode($structure));
+        }
         die;
         //读取配置信息
         $mail = new PHPMailer(true);
