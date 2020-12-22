@@ -35,8 +35,8 @@ class Email extends Controller
         $table = $this->table;
         $table->show('id', '序号');
         $table->show('email', 'EMAIL');
-        $table->match('enable', '启用')->options([0 => '<label class="label label-danger">禁用</label>', 1 => '<label class="label label-success">正常</label>']);
-        //$table->switchBtn('enable', '启用')->default(1)->autoPost()->mapClass('/admin/email/index', 'hidden', 'url');
+        //$table->match('enable', '启用')->options([0 => '<label class="label label-danger">禁用</label>', 1 => '<label class="label label-success">正常</label>']);
+        $table->switchBtn('enable', '启用')->default(1)->autoPost()->mapClass('/admin/email/index', 'hidden', 'url');
         $table->show('create_time', '创建时间')->getWrapper()->addStyle('width:180px');
         //csv
         $table->getToolbar()
@@ -44,7 +44,7 @@ class Email extends Controller
             ->btnDelete('','批量删除')
             ->btnEnableAndDisable('启用','禁用')
             ->btnRefresh('刷新')
-            ->btnExportS(['xlsx'=>'xlsx文件'],'/admin/email/upload','导出');        //定义下载按钮,下载地址
+            ->btnExportS(['xlsx'=>'xlsx文件'],'/admin/email/download','导出文件');        //定义下载按钮,下载地址
         $table->getActionbar()
             ->btnEdit()
             ->btnView()
@@ -100,7 +100,7 @@ class Email extends Controller
      * @time 2020/12/8 14:55
      * @author LW
      */
-    public function upload(Request $request)
+    public function download(Request $request)
     {
         $response = $this->export()->getContent();              //调用系统底层下载组件
         $data = json_decode($response,true);
