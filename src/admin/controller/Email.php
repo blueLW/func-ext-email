@@ -35,6 +35,7 @@ class Email extends Controller
         $table = $this->table;
         $table->show('id', '序号');
         $table->show('email', 'EMAIL');
+        $table->show('name', '邮箱昵称');
         $table->switchBtn('enable', '禁用/启用')->default(1)->autoPost()->mapClass('/admin/email/index', 'hidden', 'url');
         $table->show('create_time', '创建时间')->getWrapper()->addStyle('width:180px');
         //csv
@@ -60,7 +61,7 @@ class Email extends Controller
         $form = $this->form;
         $form->text('email', '邮箱地址')->required()->maxlength(60);
         $form->text('name', '邮箱昵称')->maxlength(60);
-        $form->match('enable', '状态')->options([0 => '<label class="label label-danger">禁用</label>', 1 => '<label class="label label-success">正常</label>']);
+        $form->match('enable', '状态')->default(1)->options([0 => '<label class="label label-danger">禁用</label>', 1 => '<label class="label label-success">正常</label>']);
     }
 
     /**保存数据
