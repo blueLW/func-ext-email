@@ -40,7 +40,7 @@ trait SendEmail
 
         $emailSender = json_decode(Cache::get('emailSender'),true);     //array
         if(!empty($emailSender) && count($emailSender) == count($sender)){
-            arsort($emailSender);
+            asort($emailSender);
             $senderAddress = key($emailSender);     //发送人账号
         }else{
             shuffle($sender);                //随机取一个账号
