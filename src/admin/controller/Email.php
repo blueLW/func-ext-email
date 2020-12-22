@@ -61,7 +61,8 @@ class Email extends Controller
         $form = $this->form;
         $form->text('email', '邮箱地址')->required()->maxlength(60);
         $form->text('name', '邮箱昵称')->maxlength(60);
-        $form->match('enable', '状态')->default(1)->options([0 => '<label class="label label-danger">禁用</label>', 1 => '<label class="label label-success">正常</label>']);
+        if($isEdit)
+        $form->match('enable', '状态')->options([0 => '<label class="label label-danger">禁用</label>', 1 => '<label class="label label-success">正常</label>']);
     }
 
     /**保存数据
@@ -72,7 +73,7 @@ class Email extends Controller
      */
     private function save($id = 0)
     {
-        $data = request()->only(['email'], 'post');
+        $data = request()->only(['email','name'], 'post');
         try {
             $validate_map = [
                 'email|邮箱' => 'email'
