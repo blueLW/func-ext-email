@@ -37,18 +37,18 @@ trait SendEmail
             ];
             throw new Exception(json_encode($error,JSON_UNESCAPED_UNICODE),500);
         }
+
         $emailSender = json_decode(Cache::get('emailSender'),true);     //array
-        if(!empty($emailSender)){
+        if(!empty($emailSender) && count($emailSender) == count($sender)){
             arsort($emailSender);
             $senderAddress = key($emailSender);     //发送人账号
         }else{
-            //随机取一个账号
-            shuffle($sender);
+            shuffle($sender);                //随机取一个账号
             $senderAddress = current($sender)['username'];
+            $cache = array_flip(array_column($sender,'username'));
         }
         $sender = array_column($sender,null,'username');
 
-        //读取配置信息
         $mail = new PHPMailer(true);
         try {
             $mail->isSMTP();                                                            //smtp方式发送
@@ -73,6 +73,7 @@ trait SendEmail
         }
         //设置发送缓存值
         $emailSender[$senderAddress] = empty($emailSender) ?  1 : $emailSender[$senderAddress] + 1;
+        isset($cache) && $emailSender = $cache;
         Cache::set('emailSender',json_encode($emailSender),3600*24);         //缓存24小时
         return true;
     }
