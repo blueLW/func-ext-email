@@ -28,7 +28,7 @@ trait SendEmail
      */
     public function sendEmails(array $receiver, array $content)
     {
-        $sender = Config::get('email.');
+        $sender = Config::pull('email.');
         if(empty($sender)){
             $structure = Structure::EMAIL_CONFIG_STRUCTURE;
             $error = [
